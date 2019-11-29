@@ -3,3 +3,4 @@ https://kb.objectrocket.com/mongo-db/mongodb-group-by-multiple-fields-using-aggr
 2)https://www.javamadesoeasy.com/2017/03/sum-operator-sum-of-salary-by-group-in.html
 3)https://www.javamadesoeasy.com/2017/03/sum-operator-sum-of-salary-by-group-in.html
 4)https://www.javamadesoeasy.com/2017/03/sum-operator-sum-of-salary-by-group-in.html
+5) https://github.com/Alladivenakat/Django-Reps
