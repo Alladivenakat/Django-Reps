@@ -1,0 +1,139 @@
+from collections import defaultdict
+students_marks = []
+with open('student_marks.csv','r') as student_file:
+      for line in student_file:
+        columns = line.split(',')
+        columns[-1] = int(columns[-1].rstrip('\n'))
+        students_marks.append(tuple(columns))
+student_tot={}
+subject_faculty = []
+with open('subject_faculty.csv') as f:
+    for line in f:
+        columns = line.split(',')
+        columns[-1] = columns[-1].rstrip('\n')
+        subject_faculty.append(tuple(columns))
+faculty_dict=dict(subject_faculty)
+
+def maximum_marks_in_maths(students_marks):
+   maximum=students_marks[0][2]
+   student=students_marks[0][0]
+   for name,subject ,marks in students_marks:
+     if subject=='Mathematics':
+      if marks>maximum:
+          maximum=marks
+          student=name
+   return maximum,student
+
+def pass_percentage(students_marks):
+   d=defaultdict(list)
+   d_count=defaultdict(int)
+   d_count_less_40=defaultdict(int)
+   for name,subject ,marks in students_marks:
+      if subject=='Mathematics':
+           if marks>40:
+               #d['Mathematics'].append(marks)
+                d_count['Mathematics']=d_count['Mathematics']+1
+           else:
+                d_count_less_40['Mathematics']=d_count_less_40['Mathematics']+1
+                 
+      if subject=='Telugu' and marks>40:
+              d['Telugu'].append(marks)
+              d_count['Telugu']=d_count['Telugu']+1
+      if subject=='Social' and  marks>40:
+        d['Social'].append(marks)
+        d_count['Social']=d_count['Social']+1
+      if subject=='Physics' and marks>40:
+              d['Physics'].append(marks)
+              d_count['Physics']=d_count['Physics']+1
+      if subject=='Chemistry' and marks>40:
+              d['Chemistry'].append(marks)
+              d_count['Chemistry']=d_count['Chemistry']+1
+      if subject=='English'and marks>40:
+              d['English'].append(marks)
+              d_count['English']=d_count['English']+1
+   print(d_count.items())
+   minimum=min(d.items(), key=lambda x:(sum(x[1])/len(x[1])) )
+   maximum=max(d.items(), key=lambda x:(sum(x[1])/len(x[1])))
+   
+
+   
+   print("MinimPass percentgae Faculty",faculty_dict[minimum[0]])
+   print("Maximum percentgae",faculty_dict[maximum[0]])
+     
+
+def sub_avg_marks(students_marks):
+       tot_marks_Mathematics=0
+       tot_marks_Telugu=0
+       tot_marks_Social=0
+       tot_marks_Physics=0
+       tot_marks_Chemistry=0
+       tot_marks_English=0
+       maths_count=0
+       Telugu_count=0
+       social_count=0
+       Physics_count=0
+       english_count=0
+       Chemistry_count=0
+       social_count=0
+       list_maths=[]
+       list_english=[]
+       list_chemistry=[]
+       list_social=[]
+       list_physics=[]
+       list_telugu=[]
+       d_maths=defaultdict(list)
+       for name,subject ,marks in students_marks:     
+          if subject=='Mathematics':
+             tot_marks_Mathematics=tot_marks_Mathematics+marks
+             maths_count=maths_count+1
+             list_maths.append(marks)
+            
+             
+          if subject=='Telugu':
+             tot_marks_Telugu=tot_marks_Telugu+marks
+             Telugu_count=Telugu_count+1
+             list_telugu.append(marks)
+          if subject=='Social':
+           tot_marks_Social=tot_marks_Social+marks
+           social_count=social_count+1
+           list_social.append(marks)
+          if subject=='Physics':
+              tot_marks_Physics=tot_marks_Physics+marks
+              Physics_count=Physics_count+1
+              list_physics.append(marks)
+          if subject=='Chemistry':
+               tot_marks_Chemistry=tot_marks_Chemistry+marks
+               Chemistry_count=Chemistry_count+1
+               list_chemistry.append(marks)
+          if subject=='English':
+                tot_marks_English=tot_marks_English+marks
+                english_count=english_count+1
+                list_english.append(marks)
+       print("*"*30)
+       print('Maths Avg amrks   ----->',tot_marks_Mathematics/maths_count)
+       print('Telugu Avg marks  ----->',tot_marks_Telugu/Telugu_count)
+       print('Social Avg Marks  ----->',tot_marks_Social/social_count)
+       print('Physics AVG Marks ----->',tot_marks_Physics/Physics_count)
+       print('Chem AVG Marks    ----->',tot_marks_Chemistry/Chemistry_count)
+       print('English AVG Marks ----->',tot_marks_English/english_count)
+       print("*"*30)
+     
+ 
+  
+student_tot={}
+for name,subject,marks in students_marks:
+    if name in student_tot:
+        student_tot[name]=student_tot[name]+marks
+    else:
+        student_tot[name]=marks
+
+print("*"*40)
+print("Maximum marks student",max(student_tot.items(),key=lambda x:x[1]))
+print("Minimum marks student",min(student_tot.items(),key=lambda x:x[1]))
+print("*"*40)
+max_marks_in_maths,max_marks_maths_stud=maximum_marks_in_maths(students_marks)
+#print("Maximum Marks in Maths ",max_marks_in_maths)
+print("Maximum marks Student in maths",max_marks_maths_stud)
+print("*"*40)
+avg_marks=sub_avg_marks(students_marks)
+pass_percentage(students_marks)
